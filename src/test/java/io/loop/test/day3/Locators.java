@@ -60,6 +60,8 @@ public class Locators {
 
         Thread.sleep(3000);
 
+        Thread.sleep(3000);
+
         //navigate back again
         driver.navigate().back();
 
