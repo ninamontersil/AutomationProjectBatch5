@@ -1,7 +1,14 @@
 package io.loop.test.utilities;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.w3c.dom.html.HTMLInputElement;
 
+import java.time.Duration;
 import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
@@ -49,5 +56,53 @@ public class BrowserUtils {
             }
         }
         driver.switchTo().window(origin);
+    }
+
+    /**
+     * Clicks any link from Loop Practice by its visible text
+     *
+     * @param nameOfPage the exact text of the link
+     */
+    public static void loopLinkClick(String nameOfPage) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[.='" + nameOfPage + "']")
+        ));
+        element.click();
+    }
+
+    /**
+     * Wait for an element to be clickable
+     *
+     * @param element element to wait for
+     * @param seconds timeout in seconds
+     * @return the clickable element
+     */
+    public static WebElement waitForClickable(WebElement element, int seconds) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    /**
+     * Wait for an element to be visible
+     *
+     * @param element element to wait for
+     * @param seconds timeout in seconds
+     * @return the visible element
+     */
+    public static WebElement waitForVisibility(WebElement element, int seconds) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    /**
+     * Wait for an element to become invisible
+     *
+     * @param element element to wait for
+     * @param seconds timeout in seconds
+     */
+    public static void waitForInvisibility(WebElement element, int seconds) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
 }
